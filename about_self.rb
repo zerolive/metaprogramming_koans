@@ -12,7 +12,7 @@ class AboutSelf < EdgeCase::Koan
   end
 
   def test_self_inside_class_defines_class_method
-    assert_equal __, Person.species
+    assert_equal "Homo Sapiens", Person.species
   end
 
   @@self_inside_class = class Person
@@ -20,7 +20,7 @@ class AboutSelf < EdgeCase::Koan
   end
 
   def test_self_inside_class_is_the_class_itself
-    assert_equal __, @@self_inside_class
+    assert_equal Person.new.class, @@self_inside_class
   end
 
   class Dog ; end
@@ -32,7 +32,7 @@ class AboutSelf < EdgeCase::Koan
   end
 
   def test_self_inside_class_ltlt_class_is_the_metaclass
-    assert_equal __, Dog.species
+    assert_equal "Canis Lupus", Dog.species
   end
 
   class Cat
@@ -46,7 +46,7 @@ class AboutSelf < EdgeCase::Koan
   def test_self_inside_class_ltlt_self_is_the_metaclass
     # inside class self = Cat
     # class << self is same as class << Cat
-    assert_equal __, Cat.species
+    assert_equal "Felis Catus", Cat.species
   end
 
   class Lion ; end
@@ -55,13 +55,13 @@ class AboutSelf < EdgeCase::Koan
   @@self_inside_instance_eval_of_object = @@object.instance_eval { self }
 
   def test_self_inside_instance_eval_of_object_is_the_object_itself
-    assert_equal __, @@self_inside_instance_eval_of_object
+    assert_equal @@object, @@self_inside_instance_eval_of_object
   end
 
   @@self_inside_instance_eval_of_class = Lion.instance_eval { self }
 
   def test_self_inside_instance_eval_of_class_is_the_class_itself
-    assert_equal __, @@self_inside_instance_eval_of_class
+    assert_equal Lion.new.class, @@self_inside_instance_eval_of_class
   end
 
   Lion.instance_eval do
@@ -71,7 +71,7 @@ class AboutSelf < EdgeCase::Koan
   end
 
   def test_self_inside_instance_eval_is_class_and_defines_class_methods
-    assert_equal __, Lion.species
+    assert_equal "Panthera Leo", Lion.species
   end
 
   class Tiger ; end
@@ -81,7 +81,7 @@ class AboutSelf < EdgeCase::Koan
   end
 
   def test_singleton_method_on_Class_defines_a_class_method
-    assert_equal __, Tiger.species
+    assert_equal "Panthera Tigris", Tiger.species
   end
 
   class Person
@@ -91,13 +91,13 @@ class AboutSelf < EdgeCase::Koan
   end
 
   def test_methods_defined_in_a_class_are_instance_methods
-    assert_equal __, Person.new.name
+    assert_equal "Matz", Person.new.name
   end
 
   @@self_inside_class_eval = Cat.class_eval { self }
 
   def test_self_inside_class_eval_is_the_class_itself
-    assert_equal __, @@self_inside_class_eval
+    assert_equal Cat.new.class, @@self_inside_class_eval
   end
 
   Cat.class_eval do
@@ -107,7 +107,7 @@ class AboutSelf < EdgeCase::Koan
   end
 
   def test_class_eval_defines_methods_in_class
-    assert_equal __, Cat.new.name
+    assert_equal "Frisky", Cat.new.name
   end
 
   class ::Class
@@ -118,7 +118,7 @@ class AboutSelf < EdgeCase::Koan
 
   def test_methods_defined_in_Class_class_is_available_to_all_classes
     # All classes are subclasses of Class and inherit methods of Class
-    assert_match __, Person.loud_name
+    assert_match "PERSON", Person.loud_name
   end
 
 end
