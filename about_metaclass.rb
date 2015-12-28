@@ -21,25 +21,25 @@ class AboutMetaclass < EdgeCase::Koan
   end
 
   def test_class_of_a_class
-    assert_equal __, MailTruck.class
+    assert_equal Class, MailTruck.class
   end
 
   def test_object_is_a_storage_for_variables
-    assert_equal __, @truck.driver
+    assert_equal "Harold", @truck.driver
   end
 
   def test_object_can_hold_any_other_instance_variables
     @truck.instance_variable_set("@speed", 45)
-    assert_equal __, @truck.instance_variable_get("@speed")
+    assert_equal 45, @truck.instance_variable_get("@speed")
   end
 
   def test_attr_accessor_defines_reader_and_writer
     @truck.driver = 'Kumar'
-    assert_equal __, @truck.driver
+    assert_equal "Kumar", @truck.driver
   end
 
   def test_classes_store_methods
-    assert_equal __, MailTruck.instance_methods.include?(:driver)
+    assert_equal true, MailTruck.instance_methods.include?(:driver)
   end
 
 =begin
@@ -55,26 +55,26 @@ BasicObject
 =end
 
   def test_class_is_an_object
-    assert_equal __, Class.is_a?(Object)
-    assert_equal __, Class.superclass
-    assert_equal __, Class.superclass.superclass
+    assert_equal true, Class.is_a?(Object)
+    assert_equal Module, Class.superclass
+    assert_equal Object, Class.superclass.superclass
   end
 
   def test_class_has_object_id
-    assert_equal __, @truck.object_id > 0
-    assert_equal __, MailTruck.object_id > 0
+    assert_equal true, @truck.object_id > 0
+    assert_equal true, MailTruck.object_id > 0
   end
 
   def test_Object_class_is_Class
-    assert_equal __, Object.class
+    assert_equal Class, Object.class
   end
 
   def test_Object_inherits_from_Basic_Object
-    assert_equal __, Object.superclass
+    assert_equal BasicObject, Object.superclass
   end
 
   def test_Basic_Object_sits_at_the_very_top
-    assert_equal __, BasicObject.superclass
+    assert_equal nil, BasicObject.superclass
   end
 
   class MailTruck
@@ -84,7 +84,7 @@ BasicObject
   end
 
   def test_metaclass_is_a_class_which_an_object_uses_to_redefine_itself
-    assert_equal __, @truck.has_mail?
+    assert_equal false, @truck.has_mail?
   end
 
   class ::Class
@@ -94,8 +94,8 @@ BasicObject
   end
 
   def test_metaclass_is_a_class_which_even_Class_uses_to_redefine_itself
-    assert_equal __, Class.is_everything_an_object?
-    assert_equal __, MailTruck.is_everything_an_object?
+    assert_equal true, Class.is_everything_an_object?
+    assert_equal true, MailTruck.is_everything_an_object?
   end
 
   def test_singleton_methods_are_defined_only_for_that_instance
@@ -105,7 +105,7 @@ BasicObject
       "Honk!Honk!"
     end
 
-    assert_equal __, red_truck.honk
+    assert_equal "Honk!Honk!", red_truck.honk
     assert_raises(NoMethodError) do
       blue_truck.honk
     end
@@ -122,16 +122,16 @@ BasicObject
 =end
 
   def test_metaclass_sits_between_object_and_class
-    assert_equal __, @truck.metaclass.superclass
+    assert_equal MailTruck.new.class, @truck.metaclass.superclass
   end
 
   def test_singleton_methods_are_defined_in_metaclass
     def @truck.honk
       "Honk"
     end
-    assert_equal __, @truck.honk
-    assert_equal __, @truck.metaclass.instance_methods.include?(:honk)
-    assert_equal __, @truck.singleton_methods.include?(:honk)
+    assert_equal "Honk", @truck.honk
+    assert_equal true, @truck.metaclass.instance_methods.include?(:honk)
+    assert_equal true, @truck.singleton_methods.include?(:honk)
   end
 
   class ::Object
@@ -142,12 +142,12 @@ BasicObject
 
   def test_class_lt_lt_opens_up_metaclass
     klass = class << @truck ; self ; end
-    assert_equal __, klass == @truck.metaclass
+    assert_equal true, klass == @truck.metaclass
   end
 
   def test_metaclass_can_have_metaclass_ad_infinitum
-    assert_equal __, @truck.metaclass.metaclass.nil?
-    assert_equal __, @truck.metaclass.metaclass.metaclass.nil?
+    assert_equal false, @truck.metaclass.metaclass.nil?
+    assert_equal false, @truck.metaclass.metaclass.metaclass.nil?
   end
 
   def test_metaclass_of_a_metaclass_does_not_affect_the_original_object
@@ -160,8 +160,8 @@ BasicObject
       "Honk Honk"
     end
 
-    assert_equal __, @truck.honk
-    assert_equal __, @truck.meta_eval { honk_honk }
+    assert_equal "Honk", @truck.honk
+    assert_equal "Honk Honk", @truck.meta_eval { honk_honk }
     assert_raises(NoMethodError) do
       @truck.honk_honk
     end
@@ -193,7 +193,7 @@ BasicObject
     MailTruck.add_truck(red_truck)
     MailTruck.add_truck(blue_truck)
 
-    assert_equal __, MailTruck.count_trucks
+    assert_equal 2, MailTruck.count_trucks
   end
 
   class MailTruck
@@ -216,11 +216,11 @@ BasicObject
     MailTruck.add_a_truck(blue_truck)
     MailTruck.add_a_truck(green_truck)
 
-    assert_equal __, MailTruck.total_trucks
+    assert_equal 3, MailTruck.total_trucks
   end
 
   def test_class_variable_and_class_instance_variable_are_not_the_same
-    assert_equal __, MailTruck.count_trucks == MailTruck.total_trucks
+    assert_equal false, MailTruck.count_trucks == MailTruck.total_trucks
   end
 
   class MailTruck
@@ -231,12 +231,12 @@ BasicObject
 
   def test_only_class_variables_can_be_accessed_by_instances_of_class
     MailTruck.add_truck(@truck)
-    assert_equal __, @truck.say_hi
+    assert_equal "Hi! I'm one of 3 trucks", @truck.say_hi
   end
 
   def test_class_methods_are_defined_in_metaclass_of_class
-    assert_equal __, MailTruck.metaclass.instance_methods.include?(:add_truck)
-    assert_equal __, MailTruck.metaclass.instance_methods.include?(:add_a_truck)
+    assert_equal true, MailTruck.metaclass.instance_methods.include?(:add_truck)
+    assert_equal true, MailTruck.metaclass.instance_methods.include?(:add_a_truck)
   end
 
   class MailTruck
@@ -247,11 +247,11 @@ BasicObject
 
   def test_class_methods_can_also_be_defined_using_self
     MailTruck.add_another_truck(MailTruck.new)
-    assert_equal __, MailTruck.count_trucks
+    assert_equal 4, MailTruck.count_trucks
   end
 
   def test_all_class_methods_are_defined_in_metaclass_of_class
-    assert_equal __, MailTruck.metaclass.instance_methods.include?(:add_another_truck)
+    assert_equal true, MailTruck.metaclass.instance_methods.include?(:add_another_truck)
   end
 
   class ::Object
@@ -281,8 +281,8 @@ BasicObject
   end
 
   def test_meta_def_can_be_used_to_add_methods_dynamically_to_metaclass
-    assert_equal __, ManualTruck.company
-    assert_equal __, RobotTruck.company
+    assert_equal "TrucksRUs", ManualTruck.company
+    assert_equal "Lego", RobotTruck.company
   end
 
   class ::Object
@@ -309,11 +309,11 @@ BasicObject
   end
 
   def test_class_def_can_be_used_to_add_instance_methods_dynamically
-    assert_equal __, ManualTruck.new.can_drive?
-    assert_equal __, RobotTruck.new.can_drive?
+    assert_equal false, ManualTruck.new.can_drive?
+    assert_equal false, RobotTruck.new.can_drive?
 
-    assert_equal __, ManualTruck.new('Harold', nil).can_drive?
-    assert_equal __, RobotTruck.new(nil, ['SF']).can_drive?
+    assert_equal true, ManualTruck.new('Harold', nil).can_drive?
+    assert_equal true, RobotTruck.new(nil, ['SF']).can_drive?
   end
 
   class ::Object
