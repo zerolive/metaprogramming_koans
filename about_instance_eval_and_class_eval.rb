@@ -106,7 +106,7 @@ class AboutInstanceEvalAndClassEval < EdgeCase::Koan
   
   def test_class_eval_can_be_used_to_call_private_methods_on_class
     String.class_eval { include Hello }
-    assert_equal __, "hello".say_hello
+    assert_equal "hi", "hello".say_hello
   end
 
   class Turtle
@@ -133,7 +133,7 @@ class AboutInstanceEvalAndClassEval < EdgeCase::Koan
   def test_yield_executes_block_with_self_as_caller
     t = Turtle.new
     here = :here
-    assert_equal __, t.move_yield { here } 
+    assert_equal :here, t.move_yield { here } 
   end
   
   class Turtle
@@ -149,7 +149,7 @@ class AboutInstanceEvalAndClassEval < EdgeCase::Koan
       up(2)
       right(1)
     end
-    assert_equal __, t.path
+    assert_equal "rrruur", t.path
   end
   
   class Turtle
@@ -161,6 +161,6 @@ class AboutInstanceEvalAndClassEval < EdgeCase::Koan
   def test_yield_inside_instance_eval_executes_block_with_self_as_caller
     still_here = :still_here
     t = Turtle.new
-    assert_equal __, t.move_eval_yield { still_here }
+    assert_equal :still_here, t.move_eval_yield { still_here }
   end
 end
