@@ -17,7 +17,7 @@ class AboutHookMethods < EdgeCase::Koan
   end
   
   def test_included_hook_method_is_called_when_module_is_included_in_class
-    assert_equal __, Bar.included?
+    assert_equal true, Bar.included?
   end
   
   class Parent
@@ -34,7 +34,7 @@ class AboutHookMethods < EdgeCase::Koan
   end
   
   def test_inherited_hook_method_is_called_when_class_is_subclassed
-    assert_equal __, Parent.inherited? 
+    assert_equal true, Parent.inherited? 
   end
   
   class ::Struct
@@ -65,7 +65,7 @@ class AboutHookMethods < EdgeCase::Koan
   end
   
   def test_const_missing_hook_method_can_be_used_to_dynamically_evaluate_constants
-    assert_equal __, VIII
+    assert_equal 8, VIII
   end
 
   class Color
@@ -77,7 +77,7 @@ class AboutHookMethods < EdgeCase::Koan
 
   def test_const_set_can_be_used_to_dynamically_create_constants
     Color::Red
-    assert_equal __, defined?(Color::Red)
+    assert_equal "constant", defined?(Color::Red)
   end
 end
 
