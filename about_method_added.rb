@@ -21,6 +21,6 @@ class AboutMethodAdded < EdgeCase::Koan
   end
     
   def test_method_added_hook_method_is_called_for_new_methods
-    assert_equal __, Cat.num_of_methods
+    assert_equal 2, Cat.num_of_methods
   end
 end
