@@ -19,14 +19,14 @@ class AboutModules < EdgeCase::Koan
   end
   
   def test_module_methods_are_active
-    assert_equal __, Foo.new.say_hello
+    assert_equal "Hi", Foo.new.say_hello
   end
   
   def test_extend_adds_singleton_methods
     animal = "cat"
     animal.extend Greeting
 
-    assert_equal __, animal.say_hello
+    assert_equal "Hi", animal.say_hello
   end
 
   def test_another_way_to_add_singleton_methods_from_module
@@ -35,7 +35,7 @@ class AboutModules < EdgeCase::Koan
       include Greeting
     end
 
-    assert_equal __, animal.say_hello
+    assert_equal "Hi", animal.say_hello
   end
   
   class Bar
@@ -43,7 +43,7 @@ class AboutModules < EdgeCase::Koan
   end
   
   def test_extend_adds_class_methods_or_singleton_methods_on_the_class
-    assert_equal __, Bar.say_hello
+    assert_equal "Hi", Bar.say_hello
   end
   
   module Moo
@@ -64,8 +64,8 @@ class AboutModules < EdgeCase::Koan
   end
   
   def test_include_instance_methods_and_extend_class_methods
-    assert_equal __, Baz.new.instance_method
-    assert_equal __, Baz.class_method
+    assert_equal :instance_value, Baz.new.instance_method
+    assert_equal :class_value, Baz.class_method
   end
   
   module Moo
@@ -80,8 +80,8 @@ class AboutModules < EdgeCase::Koan
   end
   
   def test_included_is_a_hook_method_that_can_be_used_to_extend_automatically
-    assert_equal __, Foo.new.instance_method
-    assert_equal __, Foo.class_method
+    assert_equal :instance_value, Foo.new.instance_method
+    assert_equal :class_value, Foo.class_method
   end
   
 end

@@ -9,7 +9,7 @@ class AboutClassInheritance < EdgeCase::Koan
         "miaow"
       end
     end
-    assert_equal __, animal.speak
+    assert_equal "miaow", animal.speak
   end
 
   class Foo
@@ -21,7 +21,7 @@ class AboutClassInheritance < EdgeCase::Koan
   end
 
   def test_singleton_class_can_be_used_to_define_class_methods
-    assert_equal __, Foo.say_hello
+    assert_equal "Hello", Foo.say_hello
   end
   
 end

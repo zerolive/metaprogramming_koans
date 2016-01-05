@@ -4,12 +4,12 @@ class AboutBlocks < EdgeCase::Koan
 
   def test_calling_a_lambda
     l = lambda {|a| a + 1}
-    assert_equal __, l.call(99)
+    assert_equal 100, l.call(99)
   end
 
   def test_calling_a_proc
     p = Proc.new {|a| a + 1}
-    assert_equal __, p.call(99)
+    assert_equal 100, p.call(99)
   end
   
   def convert(&block)
@@ -18,14 +18,14 @@ class AboutBlocks < EdgeCase::Koan
   
   def test_block_is_proc
     b = convert {|a| a + 1}
-    assert_equal __, b.class
-    assert_equal __, b.call(99)
+    assert_equal Proc, b.class
+    assert_equal 100, b.call(99)
   end
 
   def test_proc_takes_fewer_or_more_arguments
     p = Proc.new {|a, b, c| a.to_i + b.to_i + c.to_i}
-    assert_equal __, p.call(1,2)
-    assert_equal __, p.call(1,2,3,4)
+    assert_equal 3, p.call(1,2)
+    assert_equal 6, p.call(1,2,3,4)
   end
 
   def test_lambda_does_not_take_fewer_or_more_arguments
@@ -47,7 +47,7 @@ class AboutBlocks < EdgeCase::Koan
   def test_return_inside_lambda_returns_from_the_lambda
     l = lambda { return :from_lambda }
     result = method(l)
-    assert_equal __, result
+    assert_equal :from_method, result
   end
 
   def test_return_inside_proc_returns_from_the_context
@@ -55,6 +55,6 @@ class AboutBlocks < EdgeCase::Koan
     result = method(p)
     # The execution never reaches this line because Proc returns
     # outside the test method
-    assert_equal __, p.call
+    assert_equal result, p.call
   end
 end

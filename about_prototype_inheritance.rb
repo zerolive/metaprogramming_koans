@@ -8,7 +8,7 @@ class AboutPrototypeInheritance < EdgeCase::Koan
       "miaow"
     end
     other = animal.clone
-    assert_equal __, other.speak
+    assert_equal "miaow", other.speak
   end
 
   def test_dup_does_not_copy_singleton_methods
@@ -36,7 +36,7 @@ class AboutPrototypeInheritance < EdgeCase::Koan
     cat.num_of_lives = 9
 
     felix = cat.clone
-    assert_equal __, felix.num_of_lives
+    assert_equal 9, felix.num_of_lives
   end
   
 end

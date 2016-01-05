@@ -14,12 +14,12 @@ class AboutClassAsConstant < EdgeCase::Koan
   end
 
   def test_class_is_a_constant
-    assert_equal __, defined?(Foo)
+    assert_equal "constant", defined?(Foo)
   end
 
   def test_class_constant_can_be_assigned_to_var
     my_class = Foo
-    assert_equal __, my_class.new.say_hello
+    assert_equal "Hi", my_class.new.say_hello
   end
   
   @@return_value_of_class =
@@ -31,7 +31,7 @@ class AboutClassAsConstant < EdgeCase::Koan
     end
     
   def test_class_definitions_are_active
-    assert_equal __, @@return_value_of_class
+    assert_equal 99, @@return_value_of_class
   end
   
   @@self_inside_a_class =
@@ -43,11 +43,11 @@ class AboutClassAsConstant < EdgeCase::Koan
     end
     
   def test_self_inside_class_is_class_itself
-    assert_equal __, @@self_inside_a_class
+    assert_equal Baz, @@self_inside_a_class
   end
 
   def test_class_is_an_object_of_type_class_and_can_be_created_dynamically
     cls = Class.new
-    assert_match /__/, cls.to_s
+    assert_match Class.to_s, cls.to_s
   end
 end

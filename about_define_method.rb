@@ -19,7 +19,7 @@ class AboutDefineMethod < EdgeCase::Koan
 
     o.start
 
-    assert_equal __, o.stop
+    assert_equal :stopped, o.stop
   end
   
   class Example
@@ -33,8 +33,8 @@ class AboutDefineMethod < EdgeCase::Koan
   
   def test_methods_can_redefine_themselves
     o = Example.new
-    assert_equal __, o.foo
-    assert_equal __, o.foo
+    assert_equal :first_value, o.foo
+    assert_equal :new_value, o.foo
   end
 
   class Multiplier
@@ -49,9 +49,9 @@ class AboutDefineMethod < EdgeCase::Koan
 
   def test_define_method_creates_methods_dynamically
     m = Multiplier.new
-    assert_equal __, m.times_3(10)
-    assert_equal __, m.times_6(10)
-    assert_equal __, m.times_9(10)
+    assert_equal 30, m.times_3(10)
+    assert_equal 60, m.times_6(10)
+    assert_equal 90, m.times_9(10)
   end
   
   module Accessor
@@ -79,7 +79,7 @@ class AboutDefineMethod < EdgeCase::Koan
   def test_instance_variable_set_and_instance_variable_get_can_be_used_to_access_ivars
     cat = Cat.new
     cat.name = 'Fred'
-    assert_equal __, cat.name
+    assert_equal nil, cat.name
   end
 end
 
